@@ -59,7 +59,12 @@ class satellite_insights_client(
     $obfuscate_hostname = undef,
     $upload_schedule = undef,
 ){
-    $insightstools = [ 'PyYAML', 'libcgroup', 'libyaml', 'python-backports', 'python-backports-ssl_match_hostname', 'python-cffi', 'python-enum34', 'python-idna', 'python-ipaddress', 'python-ply', 'python-pycparser', 'python2-cryptography', 'python2-pyasn1', 'python2-pysocks', 'python2-requests', 'insights-client' ]
+    if $operatingsystemrelease =~ /^[6].*/ {
+	$insightstools = [ 'PyYAML', 'libcgroup', 'libyaml', 'python-backports', 'python-backports-ssl_match_hostname', 'python-cffi', 'python-enum34', 'python-idna', 'python-ipaddress', 'python-ply', 'python-pycparser', 'python-cryptography', 'python-pyasn1', 'python-pysocks', 'python-requests', 'insights-client' ]
+    }
+    else {
+	$insightstools = [ 'PyYAML', 'libcgroup', 'libyaml', 'python-backports', 'python-backports-ssl_match_hostname', 'python-cffi', 'python-enum34', 'python-idna', 'python-ipaddress', 'python-ply', 'python-pycparser', 'python2-cryptography', 'python2-pyasn1', 'python2-pysocks', 'python2-requests', 'insights-client' ]
+    }
 
     package { $insightstools:
       ensure   => latest,
